@@ -14,6 +14,7 @@ export const prepare = ($: cheerio.Root) => {
     "height",
     "decoding",
     "id",
+    "target"
   ];
   $("*").each((i, node) => {
     for (const attribKey of Object.keys(node.attribs)) {
@@ -21,6 +22,7 @@ export const prepare = ($: cheerio.Root) => {
     }
   });
 
+  //todo fix doubled links
   $("a").each(function (this: any) {
     $(this).attr("href", baseUrl + $(this).attr("href"));
   });

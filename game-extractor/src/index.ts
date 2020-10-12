@@ -5,6 +5,7 @@ import { getSections } from "./getSections";
 import { baseUrl, serviceKeyPath } from "./const";
 import { prepare } from "./prepare";
 import admin from "firebase-admin";
+import stringHash from "string-hash";
 
 (async () => {
   const key = JSON.parse(
@@ -20,6 +21,9 @@ import admin from "firebase-admin";
 
   const $ = cheerio.load(txt);
   prepare($);
+
+
+  //todo save image as base64
 
   const itemsData = $(".row-collectible")
     .map((i, rowNode) => {
@@ -56,11 +60,13 @@ import admin from "firebase-admin";
       console.log(`No wikiHref for item ID ${singleItemData.id}`);
     }
 
+    const hashBase = singleItemData.displayName.replace(/[\/ ]/g, "_");
+
     admin
       .firestore()
-      .collection("items")
-      .doc(singleItemData.displayName.replace(/\//g, "_"))
-      .set(singleItemData)
+      .collection("items-batch")
+      .doc(Math.abs(stringHash(hashBase) % 10).toString())
+      .set({ [hashBase]: singleItemData }, { merge: true })
       .then(() => {
         console.log(
           `Item ID ${
@@ -68,6 +74,7 @@ import admin from "firebase-admin";
           } was uploaded to Firebase. ${++itemsUploaded}/${itemsData.length}`
         );
       });
+    admin.firestore().collection("items").doc(hashBase).set(singleItemData);
     await new Promise((res) => setTimeout(res, 200));
   }
 

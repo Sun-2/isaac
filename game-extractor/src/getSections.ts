@@ -30,6 +30,16 @@ export const getSections = async (href) => {
   const $ = cheerio.load(text);
   prepare($);
 
+  $("img").each((i, node) => {
+    const match = node.attribs.src.match(/^.*latest/);
+    if (match) node.attribs.src = match[0];
+    node.attribs.referrerPolicy = "no-referrer";
+  });
+
+  $("a").each((i, node) => {
+    node.attribs.target = "_blank";
+  });
+
   const result = {};
 
   const sections = {
