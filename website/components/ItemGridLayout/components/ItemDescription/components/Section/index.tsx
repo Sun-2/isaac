@@ -16,6 +16,10 @@ export const Section = styled.div`
   & li li {
     margin-top: 8px;
   }
+  
+  & .tooltip {
+    white-space: nowrap;
+  }
 
   & .tooltip img {
     transform: translateY(30%);
