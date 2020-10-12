@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { itemView } from "./slices/itemView";
+import { itemView } from "./slices/itemView/itemView";
 
 export const store = configureStore({
   reducer: {

@@ -5,7 +5,8 @@ type MyTheme = typeof theme;
 export const theme = {
   typography: {
     families: {
-
+      isaac: "Upheaval",
+      body: "Silom"
     },
   },
   breakpoints: {

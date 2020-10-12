@@ -1,22 +1,41 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, memo, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { getSingleItemData } from "../../../../../../store/slices/itemView/selectors";
+import { animated } from "react-spring";
+import Link from "next/link";
 
 export type ItemIconProps = {
-  itemName: string;
+  item: string;
+  visible?: boolean;
 };
 
-export const ItemIcon: FunctionComponent<ItemIconProps> = (props) => {
-  const { ...rest } = props;
+export const ItemIcon: FunctionComponent<ItemIconProps> = memo((props) => {
+  const { visible, item, ...rest } = props;
 
-  return <Root></Root>;
+  const itemData = useSelector(getSingleItemData(item));
+
+  return (
+    <Root visible={visible} {...rest}>
+      <Link href={itemData.href}>
+        <Img referrerPolicy={"no-referrer"} src={itemData.imageLink} />
+      </Link>
+    </Root>
+  );
+});
+
+const Root = styled(animated.div)<{ visible: boolean }>`
+  display: ${({ visible }) => (visible ? "block" : "none")};
+`;
+Root.defaultProps = {
+  visible: true,
 };
 
-const Root = styled.div`
-  width: 50px;
-  height: 50px;
-  
-  background-color: red;
-  &:nth-child(odd) {
-    background-color: green;
-  }
+const Img = styled.img`
+  image-rendering: pixelated;
+  outline: none;
+  border: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
 `;

@@ -5,28 +5,40 @@ import React from "react";
 import firebase from "firebase";
 import firestore from "../firestore";
 import ts from "typescript/lib/tsserverlibrary";
+import { GridSlot } from "../utils/GridSlot";
+import { Topbar } from "../components/ItemGridLayout/components/Topbar";
+import { ItemGrid } from "../components/ItemGridLayout/components/ItemGrid";
+import styled from "styled-components";
+import { media } from "../styles/media";
+import stringHash from "string-hash";
+import Head from "next/head";
 
-export default function ItemName(props) {
-  const { asPath } = useRouter();
-  const itemName = asPath.substring(1);
+export interface ItemPageProps {
+  itemData: any;
+}
+
+export default function ItemPage(props: ItemPageProps) {
   return (
-    <ItemGridLayout>
-      <ItemDescription itemName={JSON.stringify(props.itemData, null, 2)} />
-    </ItemGridLayout>
+    <>
+      <Head>
+        <title>
+          {props.itemData.displayName} - Isaac Item Browser - Wiki-synchronized,
+          ad-free.
+        </title>
+      </Head>
+      <ItemDescription itemData={props.itemData} />
+    </>
   );
 }
 
+ItemPage.layout = ItemGridLayout;
+
 export async function getStaticPaths() {
-  //todo get item names
-
-  console.log("app length paths", firebase.app.length);
-
-  const itemsDocs = await firestore.collection("items").get();
+  const itemsDocs = await firestore.collection("items-batch").get();
   const itemIds = [] as any[];
 
   itemsDocs.forEach((qds) => {
-    console.log(qds.id);
-    itemIds.push(qds.id);
+    itemIds.push(...Object.keys(qds.data()));
   });
 
   return {
@@ -36,28 +48,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(props) {
-  console.log("app length props", firebase.app.length);
-  console.log(props);
-  if (firebase.app.length === 0) {
-    firebase.initializeApp({
-      apiKey: process.env.FIREBASE_API_KEY,
-      projectId: process.env.FIREBASE_PROJECT_ID,
-    });
-  }
+  const { itemName } = props.params;
+  firestore.collection("items").doc();
 
-  const item = (
-    await firestore
-      .collection("items")
-      .doc(props.params.itemName.replace(/_/g, " "))
-      .get()
+  const itemData = (
+    await firestore.collection("items").doc(itemName).get()
   ).data();
-
-  console.log("item is", item);
 
   return {
     props: {
-      itemData: item,
+      itemData,
     },
-    revalidate: 10,
+    revalidate: 3600 * 3,
   };
 }

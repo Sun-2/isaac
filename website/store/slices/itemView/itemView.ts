@@ -1,11 +1,12 @@
-import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../type";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchItems } from "./thunks";
 
 export type SortMode = "id" | "category" | "color";
 
 const initialState = {
   searchPhrase: "",
   sortMode: "id" as SortMode,
+  itemData: {} as any,
 };
 
 export const itemView = createSlice({
@@ -19,13 +20,9 @@ export const itemView = createSlice({
       state.sortMode = action.payload;
     },
   },
+  extraReducers: {
+    [fetchItems.fulfilled.type]: (state, action) => {
+      state.itemData = action.payload;
+    },
+  },
 });
-
-export const getSearchPhrase = (root: RootState) => root.itemView.searchPhrase;
-
-export const getVisibleItems = createSelector(
-  [getSearchPhrase],
-  (searchPhrase) => {
-    return ["item-name"];
-  }
-);

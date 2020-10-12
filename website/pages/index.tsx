@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/undefined");
+    router.push("/Undefined");
   }, []);
   return <div>Hi</div>;
 }

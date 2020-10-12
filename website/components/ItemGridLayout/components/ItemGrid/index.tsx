@@ -1,27 +1,28 @@
 import React, { FunctionComponent, memo } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getVisibleItems } from "../../../../store/slices/itemView";
 import { ItemIcon } from "./components/ItemIcon";
+import { getItemsWithVisility } from "../../../../store/slices/itemView/selectors";
 
 export type ItemGridProps = {};
 
 export const ItemGrid: FunctionComponent<ItemGridProps> = memo((props) => {
   const { ...rest } = props;
 
-  const visibleItemNames = useSelector(getVisibleItems);
+  const itemsWithVisibility = useSelector(getItemsWithVisility);
 
   return (
     <Root>
-      {visibleItemNames.map((itemName) => (
-        <ItemIcon key={itemName} itemName={itemName} />
+      {itemsWithVisibility.map(({ visible, name }, i) => (
+        <ItemIcon item={name} visible={visible} />
       ))}
     </Root>
   );
 });
 
 const Root = styled.div`
-  height: 100%;
+  max-height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  overflow-y: scroll;
 `;
