@@ -8,7 +8,7 @@ export const ItemName = styled.h1<{ itemId: number }>`
 
   color: #ffefe5;
   position: relative;
-  margin-top: 0.2rem;
+  margin-top: 0.8rem;
   line-height: 4rem;
 
   &::after {
