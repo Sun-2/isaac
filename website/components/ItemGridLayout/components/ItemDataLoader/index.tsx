@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useAppDispatch } from "../../../../store/useAppDispatch";
-import { fetchItems } from "../../../../store/slices/itemView/thunks";
+import {fetchItems, fetchTags} from "../../../../store/slices/itemView/thunks";
 import { animated, useTransition } from "react-spring";
 
 export const ItemDataLoader: FunctionComponent = () => {
@@ -14,6 +14,7 @@ export const ItemDataLoader: FunctionComponent = () => {
       try {
         await Promise.all([
           dispatch(fetchItems()),
+          dispatch(fetchTags()),
           new Promise((res) => setTimeout(res, minimumLoadingTime)),
         ]);
         setLoaderState("done");

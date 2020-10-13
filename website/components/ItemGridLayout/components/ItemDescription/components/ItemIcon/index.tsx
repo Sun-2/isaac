@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ItemIcon = styled.img`
   display: block;
   margin: auto;
-  width: 90px;
+  width: 120px;
   image-rendering: pixelated;
-  height: auto;
+  height: auto; 
 `;

@@ -1,4 +1,4 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import firestore from "../../../firestore";
 
 export const fetchItems = createAsyncThunk(
@@ -11,3 +11,8 @@ export const fetchItems = createAsyncThunk(
     return items;
   }
 );
+
+export const fetchTags = createAsyncThunk("fetch-tags", async (_, thunkApi) => {
+  const doc = await firestore.collection("tags").doc("index").get();
+  return doc.data().tags;
+});

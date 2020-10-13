@@ -1,4 +1,10 @@
-import React, { FunctionComponent, memo } from "react";
+import React, {
+  FunctionComponent,
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { ItemIcon } from "./components/ItemIcon";
@@ -14,15 +20,15 @@ export const ItemGrid: FunctionComponent<ItemGridProps> = memo((props) => {
   return (
     <Root>
       {itemsWithVisibility.map(({ visible, name }, i) => (
-        <ItemIcon item={name} visible={visible} />
+        <ItemIcon item={name} visible={visible} key={name}/>
       ))}
     </Root>
   );
 });
 
 const Root = styled.div`
-  max-height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  overflow-x: hidden;
   overflow-y: scroll;
 `;

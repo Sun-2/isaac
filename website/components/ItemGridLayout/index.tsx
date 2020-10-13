@@ -45,9 +45,8 @@ export const ItemGridLayout: FunctionComponent = (props) => {
 const Wrapper = styled(animated.div)`
   direction: rtl;
   height: 100%;
-  
-  overflow-y: auto;
-  
+
+  overflow-y: scroll;
 `;
 
 const DescriptionSlotWrapper = styled(GridSlot)`

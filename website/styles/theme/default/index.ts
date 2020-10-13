@@ -6,7 +6,7 @@ export const theme = {
   typography: {
     families: {
       isaac: "Upheaval",
-      body: "Silom"
+      body: "Montaga"
     },
   },
   breakpoints: {

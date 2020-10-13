@@ -1,17 +1,21 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../type";
+import {createSelector} from "@reduxjs/toolkit";
+import {RootState} from "../../type";
+import {getVisibleItems} from "./utils/visibilityFiltering";
 
 export const getSearchPhrase = (root: RootState) => root.itemView.searchPhrase;
 export const getItemData = (root: RootState) => root.itemView.itemData;
+export const getTags = (root: RootState) => root.itemView.tags;
 
 export const getItemsWithVisility = createSelector(
-  [getSearchPhrase, getItemData],
-  (searchPhrase, itemData) => {
-
+  [getSearchPhrase, getItemData, getTags],
+  (searchPhrase, itemData, tags) => {
+    if (!itemData || !tags.length) return [];
     //todo filtering logic
+    const visible = getVisibleItems(tags, itemData, searchPhrase);
+
     return Object.entries(itemData).map(([key, itemData]) => ({
       // @ts-ignore
-      visible: itemData.displayName.startsWith(searchPhrase),
+      visible: Boolean(visible === "all" || visible[key]),
       name: key,
     }));
   }

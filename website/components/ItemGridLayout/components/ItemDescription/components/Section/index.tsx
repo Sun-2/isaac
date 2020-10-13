@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 export const Section = styled.div`
+  font-size: 1.8rem;
   & ul {
     margin-top: 32px;
+    cursor: text;
+    padding-left: 1.4rem;
   }
 
   & li {
-    margin-top: 16px;
+    margin-top: 12px;
   }
 
   & ul ul {
@@ -16,7 +19,7 @@ export const Section = styled.div`
   & li li {
     margin-top: 8px;
   }
-  
+
   & .tooltip {
     white-space: nowrap;
   }
@@ -35,6 +38,6 @@ export const Section = styled.div`
   }
 
   & a:active {
-    color: purple;
+    color: rgb(208 133 68);
   }
 `;

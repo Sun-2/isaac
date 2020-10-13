@@ -12,13 +12,22 @@ import styled from "styled-components";
 import { media } from "../styles/media";
 import stringHash from "string-hash";
 import Head from "next/head";
+import { NoItem } from "../components/ItemGridLayout/components/NoItem";
 
 export interface ItemPageProps {
   itemData: any;
 }
 
 export default function ItemPage(props: ItemPageProps) {
-  return (
+
+  return !props.itemData ? (
+    <>
+      <Head>
+        <title>Isaac Item Browser - Wiki-synchronized, ad-free.</title>
+      </Head>
+      <NoItem />
+    </>
+  ) : (
     <>
       <Head>
         <title>
@@ -36,7 +45,6 @@ ItemPage.layout = ItemGridLayout;
 export async function getStaticPaths() {
   const itemsDocs = await firestore.collection("items-batch").get();
   const itemIds = [] as any[];
-
   itemsDocs.forEach((qds) => {
     itemIds.push(...Object.keys(qds.data()));
   });
@@ -49,15 +57,13 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(props) {
   const { itemName } = props.params;
-  firestore.collection("items").doc();
 
   const itemData = (
     await firestore.collection("items").doc(itemName).get()
   ).data();
-
   return {
     props: {
-      itemData,
+      itemData: itemData || null,
     },
     revalidate: 3600 * 3,
   };

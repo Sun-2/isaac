@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     font-size: calc( 16 / 10 * 100%);
     background: url("background.webp");
-    font-family: ${({ theme }) => theme.typography.families.body};
+    font-family: "${({ theme }) => theme.typography.families.body}";
     cursor: url("images/cursor.png"), auto;
     position:relative;
   }
@@ -25,7 +25,7 @@ export const GlobalStyles = createGlobalStyle`
   body::after {
     display: block;
     content: "";
-    background: -webkit-radial-gradient(50% 20%,ellipse cover,rgba(255,255,255,0),rgba(8,4,2,.9) 100%) ;
+    background: -webkit-radial-gradient(50% 52%,ellipse cover,rgba(255,255,255,0),rgba(8,4,2,.9) 100%);
     position:fixed;
     top: 0;
     right: 0;
