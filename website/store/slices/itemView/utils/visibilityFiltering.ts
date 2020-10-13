@@ -30,7 +30,7 @@ export function tagBinsearch(
   }
 }
 
-export function getVisibleItems(tagsList, itemData, ...phrases): {} | "all" {
+export function getVisibleItems(tagsList, phrases): {} | "all" {
   if (!phrases.length || (phrases.length === 1 && phrases[0] === ""))
     return "all";
 

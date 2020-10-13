@@ -8,14 +8,14 @@ import React, {
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { ItemIcon } from "./components/ItemIcon";
-import { getItemsWithVisility } from "../../../../store/slices/itemView/selectors";
+import { getItemsWithVisibility } from "../../../../store/slices/itemView/selectors";
 
 export type ItemGridProps = {};
 
 export const ItemGrid: FunctionComponent<ItemGridProps> = memo((props) => {
   const { ...rest } = props;
 
-  const itemsWithVisibility = useSelector(getItemsWithVisility);
+  const itemsWithVisibility = useSelector(getItemsWithVisibility);
 
   return (
     <Root>
