@@ -13,13 +13,15 @@ import { media } from "../styles/media";
 import stringHash from "string-hash";
 import Head from "next/head";
 import { NoItem } from "../components/ItemGridLayout/components/NoItem";
+import Select from "react-select";
+import { useDomQuery } from "../utils/useDomQuery";
 
 export interface ItemPageProps {
   itemData: any;
 }
 
-export default function ItemPage(props: ItemPageProps) {
 
+export default function ItemPage(props: ItemPageProps) {
   return !props.itemData ? (
     <>
       <Head>

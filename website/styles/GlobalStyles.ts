@@ -12,6 +12,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: "${({ theme }) => theme.typography.families.body}";
     cursor: url("images/cursor.png"), auto;
     position:relative;
+    color: ${({ theme }) => theme.typography.color.primary}
   }
   
     html, body {

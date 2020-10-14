@@ -8,6 +8,9 @@ export const theme = {
       isaac: "Upheaval",
       body: "Montaga"
     },
+    color:{
+      primary: "#efefef"
+    }
   },
   breakpoints: {
     xs: 0,

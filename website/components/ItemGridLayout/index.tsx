@@ -8,6 +8,7 @@ import { ItemDataLoader } from "./components/ItemDataLoader";
 import { animated, config, useTransition } from "react-spring";
 import { useRouter } from "next/router";
 
+
 export const ItemGridLayout: FunctionComponent = (props) => {
   const { children, ...rest } = props;
 
@@ -38,6 +39,7 @@ export const ItemGridLayout: FunctionComponent = (props) => {
           </Wrapper>
         ))}
       </DescriptionSlotWrapper>
+
     </Root>
   );
 };

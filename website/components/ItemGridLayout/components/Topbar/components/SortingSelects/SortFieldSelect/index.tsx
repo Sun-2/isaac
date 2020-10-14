@@ -1,11 +1,12 @@
 import styled, { useTheme } from "styled-components";
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import Select, { Styles } from "react-select";
 import { useSelector } from "react-redux";
-import { getSortField } from "../../../../../../store/slices/itemView/selectors";
-import { useAppDispatch } from "../../../../../../store/useAppDispatch";
-import { itemView } from "../../../../../../store/slices/itemView/itemView";
-import { useDomQuery } from "../../../../../../utils/useDomQuery";
+import { getSortField } from "../../../../../../../store/slices/itemView/selectors";
+import { useAppDispatch } from "../../../../../../../store/useAppDispatch";
+import { itemView } from "../../../../../../../store/slices/itemView/itemView";
+import { useDomQuery } from "../../../../../../../utils/useDomQuery";
+import { makeSelectStyle } from "../utils/makeSelectStyle";
 
 const sortOptions = [
   {
@@ -28,25 +29,14 @@ export const SortFieldSelect = memo(() => {
   const onChange = ({ value }) => dispatch(itemView.actions.setSortMode(value));
 
   const theme = useTheme();
-  const selectStyle: Styles = {
-    option: (styles) => ({
-      ...styles,
-      color: "red",
-      fontFamily: theme.typography.families.isaac,
-    }),
-    singleValue: (styles) => ({
-      ...styles,
-      color: "red",
-      fontFamily: theme.typography.families.isaac,
-    }),
-  };
+  const selectStyle: Styles = useMemo(() => makeSelectStyle(theme), [theme]);
 
   return (
     <Root>
-      <label htmlFor="sort-field-select">Sort by</label>
+      <Label htmlFor="sort-field-select">Sort by</Label>
       <Select
         classNamePrefix={"r-select"}
-        style={selectStyle}
+        styles={selectStyle}
         id="sort-field-select"
         value={sortOptions.find((x) => x.value === sortField)}
         onChange={onChange}
@@ -58,7 +48,10 @@ export const SortFieldSelect = memo(() => {
 });
 
 const Root = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Label = styled.label`
   font-family: ${({ theme }) => theme.typography.families.isaac};
-  margin-right: 20px;
-  width: 200px;
 `;

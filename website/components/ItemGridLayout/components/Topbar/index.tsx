@@ -2,8 +2,8 @@ import styled from "styled-components";
 import React, { FunctionComponent, memo } from "react";
 import { SearchBox } from "./components/SearchBox";
 import { GithubLink } from "./components/GithubLink";
-import { SortFieldSelect } from "./components/SortFieldSelect";
-import { SortDirectionSelect } from "./components/SortDirectionSelect";
+import { SortFieldSelect } from "./components/SortingSelects/SortFieldSelect";
+import { SortDirectionSelect } from "./components/SortingSelects/SortDirectionSelect";
 
 export type TopBarProps = {};
 
@@ -21,16 +21,15 @@ export const Topbar: FunctionComponent<TopBarProps> = memo((props) => {
       <Container>
         <SearchBox />
       </Container>
-      <Container>
-
-      </Container>
+      <Container></Container>
     </Root>
   );
 });
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-flow: column;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
 `;
