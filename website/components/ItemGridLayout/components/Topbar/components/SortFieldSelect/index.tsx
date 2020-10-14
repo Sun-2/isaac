@@ -13,6 +13,8 @@ const sortOptions = [
     label: "ID",
   },
   { value: "displayName", label: "Name" },
+  { value: "color", label: "Color", isDisabled: true },
+  { value: "type", label: "Type", isDisabled: true },
 ];
 
 export const SortFieldSelect = memo(() => {
@@ -59,6 +61,4 @@ const Root = styled.div`
   font-family: ${({ theme }) => theme.typography.families.isaac};
   margin-right: 20px;
   width: 200px;
-  
-  .r-select
 `;
