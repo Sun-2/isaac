@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../styles/theme/default";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
+import {PopupContainer} from "../components/PopupContainer";
 
 function MyApp({ Component, pageProps }) {
   const component = Component.layout ? (
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
+          <PopupContainer/>
           {component}
         </ThemeProvider>
       </Provider>

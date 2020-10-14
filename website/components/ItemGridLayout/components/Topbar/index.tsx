@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React, { FunctionComponent, memo } from "react";
 import { SearchBox } from "./components/SearchBox";
 import { GithubLink } from "./components/GithubLink";
+import { SortFieldSelect } from "./components/SortFieldSelect";
+import { SortDirectionSelect } from "./components/SortDirectionSelect";
 
 export type TopBarProps = {};
 
@@ -12,16 +14,31 @@ export const Topbar: FunctionComponent<TopBarProps> = memo((props) => {
       <GithubLink target="_blank" href={"https://github.com/Sun-2/isaac"}>
         View on GitHub
       </GithubLink>
-      <SearchBox />
+      <Container>
+        <SortDirectionSelect />
+        <SortFieldSelect />
+      </Container>
+      <Container>
+        <SearchBox />
+      </Container>
+      <Container>
+
+      </Container>
     </Root>
   );
 });
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+`;
+
 const Root = styled.div`
   grid-area: topbar;
   height: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   position: relative;
 `;

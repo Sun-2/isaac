@@ -17,7 +17,7 @@ export const getSearchTokens = createSelector(
 export const getSortedItems = createSelector(
   [getItemData, getSortDirection, getSortField],
   (itemData, sortDirection, sortField) =>
-    Object.entries(itemData).sort(([nameA, dataA], [nameB, dataB]) => {
+    Object.entries(itemData).sort(([, dataA], [, dataB]) => {
       if (sortDirection === "asc")
         return dataA[sortField] > dataB[sortField] ? 1 : -1;
       else return dataA[sortField] < dataB[sortField] ? 1 : -1;
@@ -29,7 +29,7 @@ export const getItemsWithVisibility = createSelector(
   (tokens, tags, sortedItems) => {
     if (!sortedItems || !tags.length) return [];
     const visible = getVisibleItems(tags, tokens);
-    console.log(visible);
+
     // @ts-ignore
     return sortedItems.map(([key, itemData]) => ({
       // @ts-ignore
