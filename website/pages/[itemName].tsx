@@ -9,7 +9,7 @@ import { GridSlot } from "../utils/GridSlot";
 import { Topbar } from "../components/ItemGridLayout/components/Topbar";
 import { ItemGrid } from "../components/ItemGridLayout/components/ItemGrid";
 import styled from "styled-components";
-import { media } from "../styles/media";
+import { media } from "../../../../x/fake-notification/website2/styles/media";
 import stringHash from "string-hash";
 import Head from "next/head";
 import { NoItem } from "../components/ItemGridLayout/components/NoItem";

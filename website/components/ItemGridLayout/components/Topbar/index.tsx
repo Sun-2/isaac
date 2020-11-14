@@ -4,6 +4,7 @@ import { SearchBox } from "./components/SearchBox";
 import { GithubLink } from "./components/GithubLink";
 import { SortFieldSelect } from "./components/SortingSelects/SortFieldSelect";
 import { SortDirectionSelect } from "./components/SortingSelects/SortDirectionSelect";
+import { media } from "../../../../../../../x/fake-notification/website2/styles/media";
 
 export type TopBarProps = {};
 
@@ -21,23 +22,31 @@ export const Topbar: FunctionComponent<TopBarProps> = memo((props) => {
       <Container>
         <SearchBox />
       </Container>
-      <Container></Container>
+      <Container />
     </Root>
   );
 });
 
 const Container = styled.div`
   display: flex;
-  flex-flow: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  flex-wrap: wrap;
+  align-content: center;
 `;
 
 const Root = styled.div`
   grid-area: topbar;
   height: 120px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+
   position: relative;
+
+  grid-template-rows: auto 1fr;
+
+  ${media.xl} {
+    grid-template-rows: initial;
+    grid-template-columns: 1fr auto 1fr;
+  }
 `;

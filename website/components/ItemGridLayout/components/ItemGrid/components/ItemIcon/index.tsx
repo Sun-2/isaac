@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { getSingleItemData } from "../../../../../../store/slices/itemView/selectors";
 import { animated, config, useSpring } from "react-spring";
 import Link from "next/link";
+import { useAppDispatch } from "../../../../../../store/useAppDispatch";
+import { itemView } from "../../../../../../store/slices/itemView/itemView";
 
 export type ItemIconProps = {
   item: string;
@@ -15,40 +17,31 @@ export const ItemIcon: FunctionComponent<ItemIconProps> = memo((props) => {
 
   const itemData = useSelector(getSingleItemData(item));
 
+  const springConfig = {
+    mass: 1.2,
+    tension: 500,
+    friction: 23,
+    precision: 0.2,
+    velocity: 30,
+  };
   const [springProps, setSpring] = useSpring(() => ({
     transform: `scale(1)`,
-    config: {
-      mass: 1.2,
-      tension: 500,
-      friction: 23,
-      precision: 0.2,
-      velocity: 30,
-    },
+    config: springConfig,
   }));
 
   const onMouseEnter = () =>
     setSpring({
       transform: `scale(1.45)`,
-      config: {
-        mass: 1.2,
-        tension: 500,
-        friction: 23,
-        precision: 0.2,
-        velocity: 30,
-      },
+      config: springConfig,
     });
   const onMouseLeave = () =>
     setSpring({
       transform: `scale(1)`,
-      config: {
-        mass: 2.137,
-        tension: 500,
-        friction: 23,
-        precision: 0.2,
-        velocity: 30,
-      },
+      config: { ...springConfig, mass: 2.137 },
     });
 
+  const dispatch = useAppDispatch();
+  const onClick = () => dispatch(itemView.actions.setShowItemDescription(true));
   return (
     <Root
       onMouseLeave={onMouseLeave}
@@ -59,6 +52,7 @@ export const ItemIcon: FunctionComponent<ItemIconProps> = memo((props) => {
     >
       <Link href={item}>
         <Img
+          onClick={onClick}
           alt={itemData.displayName}
           referrerPolicy={"no-referrer"}
           src={itemData.imageBase64}

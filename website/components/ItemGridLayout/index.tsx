@@ -1,25 +1,28 @@
 import React, { FunctionComponent, useEffect } from "react";
-import styled from "styled-components";
-import { media } from "../../styles/media";
+import styled, { useTheme } from "styled-components";
+import { media } from "../../../../../x/fake-notification/website2/styles/media";
 import { Topbar } from "./components/Topbar";
 import { ItemGrid } from "./components/ItemGrid";
 import { GridSlot } from "../../utils/GridSlot";
 import { ItemDataLoader } from "./components/ItemDataLoader";
 import { animated, config, useTransition } from "react-spring";
 import { useRouter } from "next/router";
-
+import { useMediaQuery } from "../../store/slices/itemView/utils/useMediaQuery";
 
 export const ItemGridLayout: FunctionComponent = (props) => {
   const { children, ...rest } = props;
 
   const router = useRouter();
 
+  const mdUp = useMediaQuery(media.md);
+
+  console.log();
   const transition = useTransition(children, (item) => router.asPath, {
     from: { opacity: 0, position: "static", height: "100%" },
     enter: { opacity: 1, position: "static", height: "100%" },
     leave: { opacity: 0, position: "absolute", height: "0%" },
     unique: true,
-    immediate: (key) => key === "height",
+    immediate: (key) => !mdUp || key === "height",
     config: config.gentle,
   });
 
@@ -32,14 +35,13 @@ export const ItemGridLayout: FunctionComponent = (props) => {
         <ItemGrid />
         <ItemDataLoader />
       </GridSlot>
-      <DescriptionSlotWrapper gridArea="item-description">
+      <StyledGridSlot gridArea="item-description">
         {transition.map(({ item, key, props }) => (
           <Wrapper key={key} style={props}>
             {item}
           </Wrapper>
         ))}
-      </DescriptionSlotWrapper>
-
+      </StyledGridSlot>
     </Root>
   );
 };
@@ -51,10 +53,11 @@ const Wrapper = styled(animated.div)`
   overflow-y: scroll;
 `;
 
-const DescriptionSlotWrapper = styled(GridSlot)`
-  display: none;
+const StyledGridSlot = styled(GridSlot)`
+  position: fixed;
+
   ${media.md} {
-    display: unset;
+    position: relative;
   }
 `;
 

@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchItems, fetchTags } from "./thunks";
+import { ItemData } from "../../../types/ItemData";
 
-export type SortField = "id" | "displayName" | "quote";
+export type SortField = ("id" | "displayName" | "quote") & keyof ItemData;
 export type SortDirection = "asc" | "dsc";
 const initialState = {
   searchPhrase: "",
-  sortField: "id" as SortField,
+  sortField: "name" as SortField,
   sortDirection: "asc" as SortDirection,
-  itemData: {} as any,
+  itemData: {} as { [internalItemName: string]: ItemData },
   tags: {} as any,
+  showItemDescription: false,
 };
 
 export const itemView = createSlice({
@@ -23,6 +25,9 @@ export const itemView = createSlice({
     },
     setSortDirection: (state, action: PayloadAction<SortDirection>) => {
       state.sortDirection = action.payload;
+    },
+    setShowItemDescription: (state, action: PayloadAction<boolean>) => {
+      state.showItemDescription = action.payload;
     },
   },
   extraReducers: {

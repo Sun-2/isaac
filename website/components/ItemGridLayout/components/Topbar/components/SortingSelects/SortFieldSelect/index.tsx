@@ -33,7 +33,7 @@ export const SortFieldSelect = memo(() => {
 
   return (
     <Root>
-      <Label htmlFor="sort-field-select">Sort by</Label>
+      <Label htmlFor="sort-field-select">by</Label>
       <Select
         classNamePrefix={"r-select"}
         styles={selectStyle}

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { ItemIcon } from "./components/ItemIcon";
 import { getItemsWithVisibility } from "../../../../store/slices/itemView/selectors";
+import { media } from "../../../../../../../x/fake-notification/website2/styles/media";
 
 export type ItemGridProps = {};
 
@@ -20,7 +21,7 @@ export const ItemGrid: FunctionComponent<ItemGridProps> = memo((props) => {
   return (
     <Root>
       {itemsWithVisibility.map(({ visible, name }, i) => (
-        <ItemIcon item={name} visible={visible} key={name}/>
+        <ItemIcon item={name} visible={visible} key={name} />
       ))}
     </Root>
   );
@@ -28,7 +29,11 @@ export const ItemGrid: FunctionComponent<ItemGridProps> = memo((props) => {
 
 const Root = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
   overflow-x: hidden;
   overflow-y: scroll;
+
+  ${media.md} {
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  }
 `;

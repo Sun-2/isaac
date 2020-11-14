@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { GlobalStyles } from "../styles/GlobalStyles";
+import { GlobalStyles } from "../../../../x/fake-notification/website2/styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../styles/theme/default";
 import { Provider } from "react-redux";
@@ -24,9 +24,9 @@ function MyApp({ Component, pageProps }) {
 
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <PopupContainer />
           <GlobalStyles />
           {component}
+          <PopupContainer />
         </ThemeProvider>
       </Provider>
     </>

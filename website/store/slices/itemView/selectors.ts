@@ -41,3 +41,6 @@ export const getItemsWithVisibility = createSelector(
 
 export const getSingleItemData = (item: string) => (root: RootState) =>
   root.itemView.itemData[item];
+
+export const getShowItemDescription = (root: RootState) =>
+  root.itemView.showItemDescription;

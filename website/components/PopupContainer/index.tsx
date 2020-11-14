@@ -5,5 +5,5 @@ export const PopupContainer = () => <Root id="popup-container" />;
 
 export const Root = styled.div`
   z-index: 1000;
-  position: absolute;
+  position: fixed;
 `;

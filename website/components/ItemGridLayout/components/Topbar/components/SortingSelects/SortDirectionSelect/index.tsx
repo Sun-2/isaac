@@ -35,7 +35,7 @@ export const SortDirectionSelect = memo(() => {
 
   return (
     <Root>
-      <Label htmlFor="sort-direction-select">Sort direction</Label>
+      <Label htmlFor="sort-direction-select">Sort</Label>
       <Select
         id="sort-direction-select"
         value={sortOptions.find((x) => x.value === sortField)}

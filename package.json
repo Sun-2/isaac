@@ -1,5 +1,14 @@
 {
-  "dependencies": {
+  "author": "sun-2",
+  "version": "0.1.0",
+  "devDependencies": {
     "prettier": "^2.1.2"
-  }
+  },
+  "private": true,
+  "workspaces": [
+    "front",
+    "wiki-scraper",
+    "website",
+    "shared"
+  ]
 }

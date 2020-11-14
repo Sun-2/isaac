@@ -1,6 +1,25 @@
-/.idea/
-/node_modules/
+.idea/
+.history/
+.vscode/
 
 ui-debug.log
 firebase-debug.log
 firestore-debug.log
+
+nocommit/
+
+dist
+
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
+.pnp
+.pnp.js
+
+# misc
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
