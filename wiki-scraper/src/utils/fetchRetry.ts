@@ -20,7 +20,7 @@ export const fetchRetry = async (
     } catch (e) {
       console.log(e);
       retryCount++;
-      if (retryCount >= 5) {
+      if (retryCount >= 10) {
         throw new Error(`fetch timed out ${args[0]}`);
       }
       await sleep(60000);

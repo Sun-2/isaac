@@ -1,26 +1,37 @@
-import { addItemToTag } from "./addItemToTag";
+import { addItemToTag } from './addItemToTag';
+import { ItemData, ItemsDataMap } from '@isaac-item-browser/shared';
 
-const getTagsForItem = (item) => {
-  const tagBlacklist = ["", "'", "s"];
-  const tagDelimiter = /[ -.:_\/]/;
+/**
+ * These tags will be omitted.
+ */
+const tagBlacklist = ['', "'", 's'];
 
-  const wordTagSource = ["quote", "displayName"];
+/**
+ * A regex that splits an item's name into tags.
+ */
+const tagDelimiter = /[ -.:_\/]/;
 
+/**
+ * Generate tags from these fields.
+ */
+const wordTagSource = ['quote', 'displayName'];
+
+const getTagsForItem = (item: ItemData) => {
   return wordTagSource
-    .map((source) =>
+    .map(source =>
       item[source]
         .toString()
         .split(tagDelimiter)
-        .filter((x) => !tagBlacklist.includes(x))
+        .filter(x => !tagBlacklist.includes(x)),
     )
     .reduce((acc, curr) => acc.concat(curr), [] as any[]);
 };
 
-export const generateTags = (itemData) => {
+export const generateTags = (itemDataMap: ItemsDataMap) => {
   const tags: { [tag: string]: string[] } = {};
 
-  for (const [name, data] of Object.entries(itemData)) {
-    const tagsForItem = getTagsForItem(data);
+  for (const item of Object.values(itemDataMap)) {
+    const tagsForItem = getTagsForItem(item);
     for (const tag of tagsForItem) {
       addItemToTag(tags, name, tag);
     }
